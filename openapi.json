@@ -1,0 +1,224 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "OpenTDB API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://opentrivia.drengskapur.workers.dev"
+    }
+  ],
+  "paths": {
+    "/api.php": {
+      "get": {
+        "operationId": "getTriviaQuestions",
+        "summary": "Get trivia questions",
+        "parameters": [
+          {
+            "name": "amount",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Number of questions to fetch"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Category ID of the questions"
+          },
+          {
+            "name": "difficulty",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "easy",
+                "medium",
+                "hard"
+              ]
+            },
+            "description": "Difficulty level of the questions"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "multiple",
+                "boolean"
+              ]
+            },
+            "description": "Type of questions (multiple choice or true/false)"
+          },
+          {
+            "name": "encode",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "urlLegacy",
+                "url3986",
+                "base64"
+              ]
+            },
+            "description": "Encoding type for the questions"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Session token to avoid repeated questions"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trivia questions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response_code": {
+                      "type": "integer"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "category": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "difficulty": {
+                            "type": "string"
+                          },
+                          "question": {
+                            "type": "string"
+                          },
+                          "correct_answer": {
+                            "type": "string"
+                          },
+                          "incorrect_answers": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api_token.php": {
+      "get": {
+        "operationId": "manageSessionToken",
+        "summary": "Manage session tokens",
+        "parameters": [
+          {
+            "name": "command",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "request",
+                "reset"
+              ]
+            },
+            "description": "Command to request or reset a session token"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Session token to reset (required for 'reset' command)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Session token management response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response_code": {
+                      "type": "integer"
+                    },
+                    "response_message": {
+                      "type": "string"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TriviaQuestions": {
+        "type": "object",
+        "properties": {
+          "response_code": {
+            "type": "integer"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "difficulty": {
+                  "type": "string"
+                },
+                "question": {
+                  "type": "string"
+                },
+                "correct_answer": {
+                  "type": "string"
+                },
+                "incorrect_answers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
