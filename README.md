@@ -6,17 +6,8 @@ Open Trivia Chat Plugin is a Cloudflare Worker that provides a proxy for the Ope
 
 ## 🔧 Installation
 
-1. Access the ChatGPT UI and select the plugin model from the top drop-down menu.
-1. Click on `Plugins` > `Plugin store` > `Install an unverified plugin`.
-1. Provide the service URL:
-
-   ```console
-   https://opentrivia.drengskapur.workers.dev
-   ```
-
-1. This plugin is still in the process of being verified: click `Continue`.
-
-Once the plugin is installed and activated, you can use it in chat conversations. When a relevant question is asked, the model will invoke an API call to the Open Trivia Database API. The model will incorporate API results in its response to the user.
+1. Access the ChatGPT UI and ensure `GPT-4` is selected with the checkbox for `Plugins` checked.
+1. Click on the plugins dropdown > `Plugin store` > scroll through the pages > find the `Open Trivia` plugin > click `Install`.
 
 ## 🗣️ Example Conversation
 
